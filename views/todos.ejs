@@ -1,0 +1,38 @@
+<% if (todos.length === 0) { %>
+    <p class="empty-message">No todos found.</p>
+<% } else { %>
+    <div class="todo-list">
+        <% todos.forEach(todo => { %>
+            <div class="todo-item">
+                <div>
+                    <h3><%= todo.title %></h3>
+                    <p>Due: <%= todo.dueDate %></p>
+                </div>
+
+                <div class="todo-actions">
+                    <% if (todo.completed) { %>
+                        <form action="/todos/<%= todo.id %>" method="POST">
+                            <input type="hidden" name="_method" value="PUT">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <input type="hidden" name="completed" value="false">
+                            <button type="submit">Mark Incomplete</button>
+                        </form>
+                    <% } else { %>
+                        <form action="/todos/<%= todo.id %>" method="POST">
+                            <input type="hidden" name="_method" value="PUT">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <input type="hidden" name="completed" value="true">
+                            <button type="submit">Mark Completed</button>
+                        </form>
+                    <% } %>
+
+                    <form action="/todos/<%= todo.id %>" method="POST">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+<% } %>

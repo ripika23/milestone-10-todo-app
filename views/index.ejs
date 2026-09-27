@@ -1,0 +1,55 @@
+<%- include("header") %>
+
+<% if (!currentUser) { %>
+
+    <div class="welcome">
+        <h2>Welcome to Todo Manager</h2>
+        <p>Please sign in or create an account to manage your Todos.</p>
+
+        <div class="auth-links">
+            <a href="/login">Sign In</a>
+            <a href="/signup">Sign Up</a>
+        </div>
+    </div>
+
+<% } else { %>
+
+    <section class="todo-container">
+        <h2>My Todos</h2>
+
+        <form action="/todos" method="POST" class="todo-form">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+            <div class="form-group">
+                <label for="title">Todo</label>
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    placeholder="Enter todo"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="dueDate">Due Date</label>
+                <input
+                    type="date"
+                    id="dueDate"
+                    name="dueDate"
+                    required
+                >
+            </div>
+
+            <button type="submit">Add Todo</button>
+        </form>
+
+        <div class="todo-section">
+            <h3>All Todos</h3>
+            <%- include("todos", { todos: todos, csrfToken: csrfToken }) %>
+        </div>
+    </section>
+
+<% } %>
+
+<%- include("footer") %>

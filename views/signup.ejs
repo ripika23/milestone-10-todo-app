@@ -1,0 +1,49 @@
+<%- include("header") %>
+
+<div class="auth-container">
+    <h2>Sign Up</h2>
+
+    <form action="/signup" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+        <div class="form-group">
+            <label for="first_name">First Name</label>
+            <input
+                type="text"
+                id="first_name"
+                name="first_name"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                required
+                minlength="6"
+            >
+        </div>
+
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <p>
+        Already have an account?
+        <a href="/login">Sign In</a>
+    </p>
+</div>
+
+<%- include("footer") %>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Manager</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <h1>Todo Manager</h1>
+
+            <nav>
+                <% if (currentUser) { %>
+                    <span>Welcome, <%= currentUser.first_name %></span>
+
+                    <form action="/logout" method="POST" class="inline-form">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <button type="submit">Sign Out</button>
+                    </form>
+                <% } else { %>
+                    <a href="/login">Sign In</a>
+                    <a href="/signup">Sign Up</a>
+                <% } %>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <%- include("notifications") %>
